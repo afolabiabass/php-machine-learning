@@ -11,6 +11,7 @@ use Phpml\Tokenization\WordTokenizer;
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use Phpml\CrossValidation\StratifiedRandomSplit;
 use Phpml\Metric\Accuracy;
+use Phpml\Exception\InvalidArgumentException;
 
 /**
  * Class SentimentAnalysis
@@ -62,7 +63,6 @@ class SentimentAnalysis {
 
     /**
      * @throws FileException
-     * @throws \Phpml\Exception\InvalidArgumentException
      */
     public function process()
     {
@@ -103,7 +103,7 @@ class SentimentAnalysis {
 
     /**
      * @return $this
-     * @throws \Phpml\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function prepare()
     {
@@ -122,7 +122,7 @@ class SentimentAnalysis {
 
     /**
      * @return $this
-     * @throws \Phpml\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function split()
     {
@@ -176,9 +176,14 @@ class SentimentAnalysis {
         return $this;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function getAccuracy()
     {
         echo 'Accuracy: '.Accuracy::score($this->testLabels, $this->predictedLabels);
+
+        return;
     }
 
 
